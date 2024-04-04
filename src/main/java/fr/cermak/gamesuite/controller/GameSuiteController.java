@@ -10,9 +10,12 @@ import java.io.IOException;
 
 public class GameSuiteController {
     @MessageMapping(path = GameCommand.PING)
-    public void pong(GameResponse gameResponse) throws IOException {
+    public GameResponse pong(byte[] data) throws IOException {
+        GameResponse response = new GameResponse(GameResponse.PONG, null);
         for (ClientHandler otherClient : GameSuite.handler.getClients()) {
-            gameResponse.send(otherClient.getOut());
+            response.send(otherClient.getOut());
         }
+
+        return null;
     }
 }

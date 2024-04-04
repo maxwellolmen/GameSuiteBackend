@@ -25,10 +25,10 @@ public class MessageHandler {
         }
     }
 
-    public GameResponse handleMessage(byte path, GameResponse message) throws Exception {
+    public GameResponse handleMessage(int path, byte[] data) throws Exception {
         Method method = methodMap[path];
         if (method != null) {
-            return (GameResponse) method.invoke(null, message); // Assuming static methods, change null to handler instance for non-static methods
+            return (GameResponse) method.invoke(null, data);
         } else {
             throw new IllegalArgumentException("No handler found for path: " + path);
         }
