@@ -1,7 +1,6 @@
 package fr.cermak.gamesuite.socket;
 
-import fr.cermak.gamesuite.GameSuite;
-import fr.cermak.gamesuite.utils.MessageHandler;
+import fr.cermak.gamesuite.util.MessageHandler;
 import lombok.Getter;
 import lombok.Setter;
 

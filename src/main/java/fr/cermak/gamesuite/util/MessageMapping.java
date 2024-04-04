@@ -1,9 +1,9 @@
-package fr.cermak.gamesuite.utils;
+package fr.cermak.gamesuite.util;
 
 import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface MessageMapping {
-    String path() default "default";
+    byte path() default 0;
 }
