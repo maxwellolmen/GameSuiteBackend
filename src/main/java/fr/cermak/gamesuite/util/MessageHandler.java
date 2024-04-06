@@ -28,7 +28,7 @@ public class MessageHandler {
     public GameResponse handleMessage(int path, byte[] data) throws Exception {
         Method method = methodMap[path];
         if (method != null) {
-            return (GameResponse) method.invoke(null, data);
+            return (GameResponse) method.invoke(this, data);
         } else {
             throw new IllegalArgumentException("No handler found for path: " + path);
         }
