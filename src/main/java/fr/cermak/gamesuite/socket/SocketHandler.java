@@ -26,6 +26,7 @@ public class SocketHandler {
             ClientHandler handler = new ClientHandler(client);
             clients.add(handler);
             handler.start();
+            System.out.println("SOCKET RECEIVED!");
         }
     }
 
