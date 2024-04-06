@@ -1,11 +1,16 @@
 package fr.cermak.gamesuite.socket;
 
-import fr.cermak.gamesuite.GameSuite;
+import fr.cermak.gamesuite.util.ByteUtil;
+import fr.cermak.gamesuite.util.MessageHandler;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
+@Getter
+@Setter
 public class ClientHandler extends Thread {
 
     private boolean active;
@@ -30,8 +35,8 @@ public class ClientHandler extends Thread {
             while (active) {
                 in.read(buffer, 0, 3);
 
-                byte command = buffer[0];
-                byte length = buffer[1];
+                int command = ByteUtil.toUnsignedInt(buffer[0]);
+                int length = ByteUtil.toUnsignedInt(buffer[1]);
 
                 if (length == 0) {
                     processCommand(command, null);
@@ -44,7 +49,7 @@ public class ClientHandler extends Thread {
             }
 
             client.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -80,16 +85,8 @@ public class ClientHandler extends Thread {
         return ByteBuffer.wrap(arr);
     }
 
-    private void processCommand(byte command, byte[] data) throws IOException {
-        GameResponse response = null;
-
-        switch (command) {
-            case GameCommand.PING:
-                GameResponse pong = new GameResponse(GameResponse.PONG, null);
-                for (ClientHandler otherClient : GameSuite.handler.getClients()) {
-                    pong.send(otherClient.out);
-                }
-        }
+    private void processCommand(int command, byte[] data) throws Exception {
+        GameResponse response = MessageHandler.getInstance().handleMessage(command, data);
 
         if (response != null) {
             response.send(out);
