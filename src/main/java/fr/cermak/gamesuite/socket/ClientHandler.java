@@ -33,7 +33,7 @@ public class ClientHandler extends Thread {
     public void run() {
         try {
             while (active) {
-                in.read(buffer, 0, 3);
+                in.read(buffer, 0, 2);
 
                 System.out.println("INCOMING DATA!");
 
