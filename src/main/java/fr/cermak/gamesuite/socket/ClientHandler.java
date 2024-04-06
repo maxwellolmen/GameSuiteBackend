@@ -27,6 +27,7 @@ public class ClientHandler extends Thread {
         this.in = client.getInputStream();
 
         buffer = new byte[1024];
+        active = true;
     }
 
     @Override
