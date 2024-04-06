@@ -10,6 +10,7 @@ import java.io.IOException;
 public class GameSuiteController {
     @MessageMapping(path = 0)
     public GameResponse pong(byte[] data) throws IOException {
+        System.out.println("RECEIVED PING!");
         GameResponse response = new GameResponse(GameResponse.PONG, null);
         for (ClientHandler otherClient : GameSuite.handler.getClients()) {
             response.send(otherClient.getOut());
