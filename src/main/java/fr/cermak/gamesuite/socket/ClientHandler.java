@@ -35,6 +35,8 @@ public class ClientHandler extends Thread {
             while (active) {
                 in.read(buffer, 0, 3);
 
+                System.out.println("INCOMING DATA!");
+
                 int command = ByteUtil.toUnsignedInt(buffer[0]);
                 int length = ByteUtil.toUnsignedInt(buffer[1]);
 
@@ -86,6 +88,8 @@ public class ClientHandler extends Thread {
     }
 
     private void processCommand(int command, byte[] data) throws Exception {
+        System.out.println("PROCESSING COMMAND " + command);
+
         GameResponse response = MessageHandler.getInstance().handleMessage(command, data);
 
         if (response != null) {
