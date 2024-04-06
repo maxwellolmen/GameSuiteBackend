@@ -8,6 +8,7 @@ import fr.cermak.gamesuite.socket.GameResponse;
 public class MessageHandler {
     private static MessageHandler single_instance = null;
     public Method[] methodMap = new Method[256];
+    private GameSuiteController controller;
 
     public static synchronized MessageHandler getInstance()
     {
@@ -23,12 +24,14 @@ public class MessageHandler {
                 methodMap[ByteUtil.toUnsignedInt(annotation.path())] = method;
             }
         }
+
+        controller = new GameSuiteController();
     }
 
     public GameResponse handleMessage(int path, byte[] data) throws Exception {
         Method method = methodMap[path];
         if (method != null) {
-            return (GameResponse) method.invoke(this, data);
+            return (GameResponse) method.invoke(controller, data);
         } else {
             throw new IllegalArgumentException("No handler found for path: " + path);
         }
