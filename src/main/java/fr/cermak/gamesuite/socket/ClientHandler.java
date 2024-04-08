@@ -22,13 +22,19 @@ public class ClientHandler extends Thread {
 
     private byte[] buffer;
 
-    public ClientHandler(Socket client) throws IOException {
+    public ClientHandler(Socket client) {
         this.client = client;
-        this.out = client.getOutputStream();
-        this.in = client.getInputStream();
 
         buffer = new byte[1024];
         active = true;
+
+        try {
+            this.out = client.getOutputStream();
+            this.in = client.getInputStream();
+        } catch (IOException e) {
+            GameSuite.handler.getClients().remove(this);
+            active = false;
+        }
     }
 
     @Override
@@ -57,6 +63,7 @@ public class ClientHandler extends Thread {
             client.close();
         } catch (Exception e) {
             GameSuite.handler.getClients().remove(this);
+            active = false;
         }
     }
 
