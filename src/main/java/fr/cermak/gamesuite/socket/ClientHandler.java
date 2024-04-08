@@ -35,7 +35,7 @@ public class ClientHandler extends Thread {
     public void run() {
         try {
             while (active) {
-                System.out.println("READY FOR DATA");
+                System.out.println("READY FOR DATA @ " + System.currentTimeMillis());
 
                 in.read(buffer, 0, 2);
 
