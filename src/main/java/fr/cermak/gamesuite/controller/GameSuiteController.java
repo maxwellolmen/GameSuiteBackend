@@ -13,6 +13,7 @@ public class GameSuiteController {
         System.out.println("RECEIVED PING!");
         GameResponse response = new GameResponse(GameResponse.PONG, null);
         for (ClientHandler otherClient : GameSuite.handler.getClients()) {
+            System.out.println("SENDING PONG TO" + otherClient.getClient().getInetAddress());
             response.send(otherClient.getOut());
         }
 
