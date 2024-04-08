@@ -1,5 +1,6 @@
 package fr.cermak.gamesuite.socket;
 
+import fr.cermak.gamesuite.GameSuite;
 import fr.cermak.gamesuite.util.ByteUtil;
 import fr.cermak.gamesuite.util.MessageHandler;
 import lombok.Getter;
@@ -55,7 +56,7 @@ public class ClientHandler extends Thread {
 
             client.close();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            GameSuite.handler.getClients().remove(this);
         }
     }
 
